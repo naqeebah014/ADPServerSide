@@ -30,13 +30,14 @@ public class ServerConnection {
 
     }
 
+    
     private void getStreams() throws ClassNotFoundException, IOException {
         in = new ObjectInputStream(client.getInputStream());
         out = new ObjectOutputStream(client.getOutputStream());
     }
 
-    private void processClient() throws ClassNotFoundException{
-         do {
+    private void processClient() throws ClassNotFoundException {
+        do {
             try {
                 response = (String) in.readObject();
                 sendData(response.toUpperCase());
@@ -55,6 +56,7 @@ public class ServerConnection {
 
         }
     }
+
     private void listenForClients() throws ClassNotFoundException {
         try {
             client = listener.accept();
