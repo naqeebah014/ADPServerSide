@@ -12,27 +12,29 @@ import javax.swing.*;
  */
 public class ServerSideGUI extends JFrame implements ActionListener {
 
-    private JPanel pnlSouth, pnlCenter;
+    private JPanel pnlSouth, pnlCenter, pnlNorth;
     private JButton btnClose, btnCheck;
     private JTextArea logtxt;
+    private JLabel toplbl;
 
-    ServerSide sr = new ServerSide();
+    private ServerConnection serverConnection;
 
     public ServerSideGUI() {
         super("Server side");
 
         pnlSouth = new JPanel();
         pnlCenter = new JPanel();
-
+        pnlNorth = new JPanel();
+        
+        toplbl = new JLabel("Activity Log");
         btnClose = new JButton("Close");
         btnCheck = new JButton("Check");
         
-        
         logtxt = new JTextArea(10, 30);
         
+        serverConnection = new ServerConnection(); // Create the server connection instance
         
         setGUI();
-        
     }
 
     public void setGUI() {
@@ -41,7 +43,8 @@ public class ServerSideGUI extends JFrame implements ActionListener {
 
         setLayout(new BorderLayout());
 
-        
+        pnlNorth.setLayout(new GridLayout(1,1));
+        pnlNorth.add(toplbl);
         pnlCenter.setLayout(new BorderLayout());
         pnlCenter.add(new JScrollPane(logtxt), BorderLayout.CENTER);
 
@@ -51,17 +54,22 @@ public class ServerSideGUI extends JFrame implements ActionListener {
 
         add(pnlCenter, BorderLayout.CENTER);
         add(pnlSouth, BorderLayout.SOUTH);
-
+        add(pnlNorth, BorderLayout.NORTH);
         this.setVisible(true);
+        
         btnClose.addActionListener(this);
         btnCheck.addActionListener(this);
     }
     
     @Override
     public void actionPerformed(ActionEvent e){
-        
-    
-    
+        if(e.getSource() == btnClose){
+            System.out.println("Button still under development (close)");
+            System.exit(0);
+        } else if(e.getSource() == btnCheck){
+            logtxt.append("Checking server status...\n");
+         
+        }
     }
 
     public static void main(String[] args) {
