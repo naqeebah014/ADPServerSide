@@ -18,6 +18,7 @@ public class ServerConnection {
     private ObjectOutputStream out;
     private Socket client;
     private String myMsg;
+    private String response = "";
 
     public ServerConnection() {
         try {
@@ -34,7 +35,16 @@ public class ServerConnection {
         out = new ObjectOutputStream(client.getOutputStream());
     }
 
-    private void processClient() {
+    private void processClient() throws ClassNotFoundException{
+         do {
+            try {
+                response = (String) in.readObject();
+                sendData(response.toUpperCase());
+            } catch (IOException e) {
+
+            }
+        } while ("Exit".equalsIgnoreCase(response));
+        System.out.println("terminating communication");
     }
 
     private void sendData(String myMsg) {
