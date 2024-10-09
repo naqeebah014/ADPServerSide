@@ -1,52 +1,70 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.mycompany.serverside;
 
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.*;
 
 /**
  *
  * @author Engetelo
  */
-public class ServerSideGUI extends JFrame {
+public class ServerSideGUI extends JFrame implements ActionListener {
 
     private JPanel pnlSouth, pnlCenter;
-    private JButton btnClose, btncheck;
+    private JButton btnClose, btnCheck;
     private JTextArea logtxt;
 
+    ServerSide sr = new ServerSide();
+
     public ServerSideGUI() {
+        super("Server side");
 
         pnlSouth = new JPanel();
         pnlCenter = new JPanel();
 
         btnClose = new JButton("Close");
-        btncheck = new JButton("Check");
-
-        logtxt = new JTextArea(4, 4);
-
+        btnCheck = new JButton("Check");
+        
+        
+        logtxt = new JTextArea(10, 30);
+        
+        
         setGUI();
-
+        
     }
 
     public void setGUI() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(300, 300);
-        this.setVisible(true);
+        this.setSize(400, 300);
+
+        setLayout(new BorderLayout());
+
         
-        setLayout(new FlowLayout());
-        pnlSouth.setLayout(new FlowLayout());
+        pnlCenter.setLayout(new BorderLayout());
+        pnlCenter.add(new JScrollPane(logtxt), BorderLayout.CENTER);
+
+        pnlSouth.setLayout(new GridLayout(1, 2));
         pnlSouth.add(btnClose);
-        pnlSouth.add(btncheck);
+        pnlSouth.add(btnCheck);
 
-        pnlCenter.add(logtxt);
-        
+        add(pnlCenter, BorderLayout.CENTER);
+        add(pnlSouth, BorderLayout.SOUTH);
 
+        this.setVisible(true);
+        btnClose.addActionListener(this);
+        btnCheck.addActionListener(this);
     }
     
+    @Override
+    public void actionPerformed(ActionEvent e){
+        
     
+    
+    }
 
+    public static void main(String[] args) {
+        new ServerSideGUI();
+    }
 }
