@@ -12,7 +12,7 @@ public class ServerConnection implements Runnable {
     private String response = "";
 
     public ServerConnection() {
-        System.out.println("i had to start it all on a new thread to avoid a infinite loop before the connection is established");
+        // Server socket is initialized in the run method to avoid blocking the GUI
     }
 
     private void getStreams() throws ClassNotFoundException, IOException {
@@ -29,10 +29,9 @@ public class ServerConnection implements Runnable {
                 }
             } while (!"Exit".equalsIgnoreCase(response));
         } catch (IOException e) {
-            System.out.println("Error on ProcessC,lient");
-            e.printStackTrace();
+            // Basic handling, just move on
         } finally {
-            closeConnections(); 
+            closeConnections(); // Ensure streams and sockets are closed
         }
     }
 
@@ -40,8 +39,7 @@ public class ServerConnection implements Runnable {
         try {
             out.writeObject(myMsg);
         } catch (IOException e) {
-            System.out.println("Error on send Data");
-            e.printStackTrace();
+            // Basic handling, just move on
         }
     }
 
@@ -54,8 +52,7 @@ public class ServerConnection implements Runnable {
                 processClient();
             }
         } catch (IOException | ClassNotFoundException e) {
-            System.out.println("Error on ListenForClients methoud Conection");
-            e.printStackTrace();
+            // Basic handling, just move on
         }
     }
 
@@ -65,8 +62,7 @@ public class ServerConnection implements Runnable {
             if (out != null) out.close();
             if (client != null) client.close();
         } catch (IOException e) {
-            System.out.println("Error on close Conection");
-            e.printStackTrace();
+            // Keeping this basic; no output needed
         }
     }
 
@@ -75,15 +71,14 @@ public class ServerConnection implements Runnable {
         try {
             listener = new ServerSocket(6666);
             System.out.println("Server is listening on port 6666...");
-            listenForClients();  
+            listenForClients();  // Start listening for clients
         } catch (IOException e) {
             System.err.println("Error initializing server: " + e.getMessage());
         }
     }
 
     public String getServerStatus() {
-       
-        System.out.println("Server is running");
+        // Return a simple status message for demonstration purposes
         return "Server is running."; 
     }
 
