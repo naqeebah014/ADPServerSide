@@ -12,7 +12,7 @@ public class ServerConnection implements Runnable {
     private String response = "";
 
     public ServerConnection() {
-        // Server socket is initialized in the run method to avoid blocking the GUI
+
     }
 
     private void getStreams() throws ClassNotFoundException, IOException {
@@ -29,9 +29,9 @@ public class ServerConnection implements Runnable {
                 }
             } while (!"Exit".equalsIgnoreCase(response));
         } catch (IOException e) {
-            // Basic handling, just move on
+
         } finally {
-            closeConnections(); // Ensure streams and sockets are closed
+            closeConnections();
         }
     }
 
@@ -39,7 +39,7 @@ public class ServerConnection implements Runnable {
         try {
             out.writeObject(myMsg);
         } catch (IOException e) {
-            // Basic handling, just move on
+           
         }
     }
 
@@ -52,17 +52,22 @@ public class ServerConnection implements Runnable {
                 processClient();
             }
         } catch (IOException | ClassNotFoundException e) {
-            // Basic handling, just move on
         }
     }
 
     private void closeConnections() {
         try {
-            if (in != null) in.close();
-            if (out != null) out.close();
-            if (client != null) client.close();
+            if (in != null) {
+                in.close();
+            }
+            if (out != null) {
+                out.close();
+            }
+            if (client != null) {
+                client.close();
+            }
         } catch (IOException e) {
-            // Keeping this basic; no output needed
+
         }
     }
 
@@ -78,11 +83,11 @@ public class ServerConnection implements Runnable {
     }
 
     public String getServerStatus() {
-        // Return a simple status message for demonstration purposes
-        return "Server is running."; 
+
+        return "Server is running.";
     }
 
     public static void main(String[] args) {
-        new Thread(new ServerConnection()).start(); // Start server connection in a new thread
+        new Thread(new ServerConnection()).start();
     }
 }

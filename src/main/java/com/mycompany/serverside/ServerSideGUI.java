@@ -32,7 +32,7 @@ public class ServerSideGUI extends JFrame implements ActionListener {
         
         logtxt = new JTextArea(10, 30);
         
-        serverConnection = new ServerConnection(); // Create the server connection instance
+        serverConnection = new ServerConnection(); 
         
         setGUI();
     }
